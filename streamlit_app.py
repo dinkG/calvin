@@ -12,8 +12,6 @@ def load_lottieurl(url: str):
     return r.json()
 
 # Load the brain animation
-lottie_brain = load_lottieurl("https://assets4.lottiefiles.com/packages/lf20_SkhtL8.json")
-
 # Function to call the API
 def call_api(query):
     # Replace with your actual API endpoint
