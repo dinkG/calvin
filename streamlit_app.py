@@ -50,7 +50,7 @@ def main():
                 # Remove spinning brain
                 brain_placeholder.empty()
 
-            if result:
+        if result:
                 # Display the response in a nice format
                 st.subheader("Response:")
                 st.write(result.get('Answer', 'No response available'))
