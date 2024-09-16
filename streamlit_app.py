@@ -43,14 +43,11 @@ def main():
     user_question = st.text_input("Ask your question:")
 
     if st.button("Receive Answer"):
- 
-                # Call API
-                result = call_api(user_question)
-                
-                # Remove spinning brain
-                brain_placeholder.empty()
+        if user_question:
+            # Call API
+            result = call_api(user_question)
 
-    if result:
+            if result:
                 # Display the response in a nice format
                 st.subheader("Response:")
                 st.write(result.get('Answer', 'No response available'))
