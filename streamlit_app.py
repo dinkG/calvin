@@ -43,7 +43,6 @@ def main():
     user_question = st.text_input("Ask your question:")
 
     if st.button("Receive Answer"):
-        if user_question:
  
                 # Call API
                 result = call_api(user_question)
