@@ -1,7 +1,6 @@
 import streamlit as st
 import requests
 import json
-from streamlit_lottie import st_lottie
 import time
 
 # Load Lottie file
@@ -12,7 +11,6 @@ def load_lottieurl(url: str):
     return r.json()
 
 # Load brain animation
-lottie_brain = load_lottieurl("https://assets4.lottiefiles.com/packages/lf20_SkhtL8.json")
 
 # Updated API call function for AWS Lambda via API Gateway
 def call_api(query):
