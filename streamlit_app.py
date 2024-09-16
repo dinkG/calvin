@@ -4,23 +4,30 @@ import json
 from streamlit_lottie import st_lottie
 import time
 
-# Function to load Lottie file
+# Load Lottie file
 def load_lottieurl(url: str):
     r = requests.get(url)
     if r.status_code != 200:
         return None
     return r.json()
 
-# Load the brain animation
-# Function to call the API
+# Load brain animation
+lottie_brain = load_lottieurl("https://assets4.lottiefiles.com/packages/lf20_SkhtL8.json")
+
+# Updated API call function for AWS Lambda via API Gateway
 def call_api(query):
-    # Replace with your actual API endpoint
-    api_url = "https://rqda1p729h.execute-api.us-east-1.amazonaws.com/dev/chatapi"
+    # Replace with your actual API Gateway endpoint that triggers the Lambda function
+    api_url = "https://lnuv0i4a09.execute-api.us-east-1.amazonaws.com/dev/"
     
     try:
+        # Prepare the payload with the user's query
         response = requests.post(api_url, json={"user_query": query})
-        response.raise_for_status()  # Raise an exception for bad status codes
-        return response.json()  # This should now work correctly
+        
+        # Handle bad status codes
+        response.raise_for_status()
+        
+        # Return the JSON response from the Lambda function
+        return response.json()
     except requests.exceptions.RequestException as e:
         st.error(f"An error occurred while calling the API: {str(e)}")
         return None
@@ -34,7 +41,7 @@ def main():
 
     st.title("Ask John Calvin")
 
-    # User input
+    # User input for the question
     user_question = st.text_input("Ask your question:")
 
     if st.button("Receive Answer"):
@@ -54,14 +61,14 @@ def main():
             if result:
                 # Display the response in a nice format
                 st.subheader("Response:")
-                st.write(result.get('generated_response', 'No response body available'))
+                st.write(result.get('Answer', 'No response available'))
 
                 # Display additional information
                 with st.expander("See details"):
                     st.json({
-                        "Query": result.get('query', 'N/A'),
+                        "Question": result.get('Question', 'N/A'),
                         "Status Code": result.get('statusCode', 'N/A'),
-                        "Source": result.get('s3_location', 'N/A')
+                        "Citation": result.get('Citation', 'N/A')
                     })
             else:
                 st.error("Failed to get a valid response from the API.")
