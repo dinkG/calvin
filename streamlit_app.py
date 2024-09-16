@@ -44,12 +44,7 @@ def main():
 
     if st.button("Receive Answer"):
         if user_question:
-            # Display spinning brain while processing
-            with st.spinner("Thinking..."):
-                brain_placeholder = st.empty()
-                with brain_placeholder:
-                    st_lottie(lottie_brain, height=200, key="brain")
-                
+ 
                 # Call API
                 result = call_api(user_question)
                 
